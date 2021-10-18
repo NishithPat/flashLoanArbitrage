@@ -1,0 +1,9 @@
+export DAI_WHALE=0xC73f6738311E76D45dFED155F39773e68251D251
+export ETH_WHALE=0x0a4c79cE84202b03e95B7a692E5D728d83C44c76
+export INFURA_API_KEY=INSERT_YOUR_KEY
+
+ganache-cli \
+--fork https://mainnet.infura.io/v3/$INFURA_API_KEY \
+--unlock $DAI_WHALE \
+--unlock $ETH_WHALE \
+--networkId 999
