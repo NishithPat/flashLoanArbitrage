@@ -73,7 +73,7 @@ contract FlashLoanArbitrage is FlashLoanReceiverBase {
         address _tokenIn,
         address _tokenOut,
         uint256 _amount
-    ) public returns (uint256) {
+    ) internal returns (uint256) {
         uint24 poolFee = 500; //DAI-USDC pool fee
         //IERC20(_tokenIn).transferFrom(msg.sender, address(this), _amount);
         IERC20(_tokenIn).approve(uinswapRouter, _amount);
@@ -108,7 +108,7 @@ contract FlashLoanArbitrage is FlashLoanReceiverBase {
         uint256 _amount,
         uint256 _expected,
         address _receiver
-    ) public payable {
+    ) internal {
         IERC20(_from).approve(curveExchangeContract, _amount);
         emit Log("exchanging on Curve(USDC to DAI)", _amount);
 
@@ -139,7 +139,7 @@ contract FlashLoanArbitrage is FlashLoanReceiverBase {
         address _tokenIn,
         address _tokenOut,
         address _pool
-    ) public {
+    ) internal {
         uint256 contractTokenInBalance = IERC20(_tokenIn).balanceOf(
             address(this)
         );
