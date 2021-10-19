@@ -24,7 +24,6 @@ contract FlashLoanArbitrage is FlashLoanReceiverBase {
     address inToken;
     address outToken;
     address curvePool;
-    address curveExchangeContract;
 
     address owner;
 
@@ -97,7 +96,11 @@ contract FlashLoanArbitrage is FlashLoanReceiverBase {
         return amountOut;
     }
 
-    function returnsExchangeAddress(uint256 _id) public view returns (address) {
+    function returnsExchangeAddress(uint256 _id)
+        internal
+        view
+        returns (address)
+    {
         return IProvider(addressProviderCurve).get_address(_id);
     }
 
@@ -109,10 +112,11 @@ contract FlashLoanArbitrage is FlashLoanReceiverBase {
         uint256 _expected,
         address _receiver
     ) internal {
-        IERC20(_from).approve(curveExchangeContract, _amount);
+        address exchangeContract = returnsExchangeAddress(2);
+        IERC20(_from).approve(exchangeContract, _amount);
         emit Log("exchanging on Curve(USDC to DAI)", _amount);
 
-        ISwap(curveExchangeContract).exchange(
+        ISwap(exchangeContract).exchange(
             _pool,
             _from,
             _to,
@@ -123,7 +127,6 @@ contract FlashLoanArbitrage is FlashLoanReceiverBase {
     }
 
     function setArbitrageDetails(
-        address _exchangeContract,
         address _tokenIn,
         address _tokenOut,
         address _pool
@@ -132,7 +135,6 @@ contract FlashLoanArbitrage is FlashLoanReceiverBase {
         inToken = _tokenIn;
         outToken = _tokenOut;
         curvePool = _pool;
-        curveExchangeContract = _exchangeContract;
     }
 
     function arbitrage(

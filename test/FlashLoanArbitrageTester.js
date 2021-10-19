@@ -22,8 +22,7 @@ contract("FlashLoanArbitrage", accounts => {
 
         console.log(flashloanarbitrageDAIBalance.toString(), " = initial DAI amount sent to flashloanarbitrage contract from DAI_WHALE");
 
-        const exchangeContractAddress = await flashloanarbitrage.returnsExchangeAddress(2, { from: DAI_WHALE });
-        await flashloanarbitrage.setArbitrageDetails(exchangeContractAddress, DAI, USDC, _3pool, { from: DAI_WHALE });
+        await flashloanarbitrage.setArbitrageDetails(DAI, USDC, _3pool, { from: DAI_WHALE });
 
         const loanAmount = web3.utils.toWei("100000");
         const tx = await flashloanarbitrage.myFlashLoanCall(DAI, loanAmount, { from: DAI_WHALE });
