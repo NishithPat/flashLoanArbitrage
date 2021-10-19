@@ -128,6 +128,7 @@ contract FlashLoanArbitrage is FlashLoanReceiverBase {
         address _tokenOut,
         address _pool
     ) public {
+        require(msg.sender == owner, "only owner can call the function");
         inToken = _tokenIn;
         outToken = _tokenOut;
         curvePool = _pool;
