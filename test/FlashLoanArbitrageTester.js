@@ -35,7 +35,7 @@ contract("FlashLoanArbitrage", accounts => {
         flashloanarbitrageDAIBalance = await DAIContract.balanceOf(flashloanarbitrage.address);
         console.log(flashloanarbitrageDAIBalance.toString(), " = DAI amount remaining with flashloanarbitrage contract after loan repayment");
 
-        await flashloanarbitrage.sendsEthAndTokensBack(DAI, { from: DAI_WHALE });
+        await flashloanarbitrage.sendTokensBack(DAI, { from: DAI_WHALE });
         flashloanarbitrageDAIBalance = await DAIContract.balanceOf(flashloanarbitrage.address);
         console.log(flashloanarbitrageDAIBalance.toString(), " = DAI amount remaining with flashloanarbitrage contract after owner calls sendsEthAndTokensBack method");
 

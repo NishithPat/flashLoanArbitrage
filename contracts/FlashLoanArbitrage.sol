@@ -177,12 +177,8 @@ contract FlashLoanArbitrage is FlashLoanReceiverBase {
         return true;
     }
 
-    function sendsEthAndTokensBack(address _tokenAddress) public {
+    function sendTokensBack(address _tokenAddress) public {
         require(msg.sender == owner, "only owner can call the function");
-        (bool sent, ) = payable(msg.sender).call{value: address(this).balance}(
-            ""
-        );
-        require(sent, "Failed to send ether");
 
         uint256 contractTokenBalance = IERC20(_tokenAddress).balanceOf(
             address(this)
